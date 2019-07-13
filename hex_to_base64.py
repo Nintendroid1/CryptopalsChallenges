@@ -8,13 +8,16 @@ base64.b64encode(str)
 
 
 def hexToBase64(ct: str):
+    # Convert hex string to bytes object then decode to ascii
+    ctAscii = bytearray.fromhex(ct).decode()
+
     alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e",
                 "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "/"]
     result = []
     padding = 0
 
     # Loop through characters 3 at a time and store in string
-    ctLen = len(ct)
+    ctLen = len(ctAscii)
     for i in range(0, ctLen, 3):
         binData = 0
         cnt = 0
@@ -23,7 +26,7 @@ def hexToBase64(ct: str):
         j = i
         while(j < ctLen and j <= i+2):
             binData = binData << 8
-            binData = binData | ord(ct[j])
+            binData = binData | ord(ctAscii[j])
             cnt += 1
             j += 1
 
