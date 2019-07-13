@@ -3,7 +3,7 @@ import unittest
 from hex_to_base64 import hexToBase64
 from fixed_xor import fixedXOR
 from single_byte_xor import singleByteXOR
-
+from frequency import frequencyAnalyzer
 
 '''Testing for Crypto Challenges'''
 
@@ -26,12 +26,25 @@ class TestCrypt(unittest.TestCase):
 
     def test_single_byte_xor(self):
         val = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+        corr = "Cooking MC's like a pound of bacon"
 
-        for i in range(0, 255):
-            print(singleByteXOR(val, i))
+        self.assertEqual(set1Chal3Solution(val), corr)
 
-        for j in range(97, 123):
-            print(chr(j))
+# Iterate through int character values (0-255)
+
+
+def set1Chal3Solution(val):
+    result = ''
+    bestScore = 0
+    for i in range(0, 255):
+        temp = singleByteXOR(val, i)
+        tempScore = frequencyAnalyzer(temp)
+        print(temp)
+        print(tempScore)
+        if(tempScore > bestScore):
+            bestScore = tempScore
+            result = temp
+    return result.decode()
 
 
 if __name__ == "__main__":
