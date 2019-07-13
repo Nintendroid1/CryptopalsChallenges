@@ -11,3 +11,6 @@ Bitwise XOR with 2 hex strings
 
 # single_byte_xor.py
 Bitwise XOR with hex string and a single char
+
+# frequency.py
+Returns the frequency relative to the english alphabet
