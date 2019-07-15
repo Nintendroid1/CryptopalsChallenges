@@ -29,6 +29,11 @@ class TestCrypt(unittest.TestCase):
         corr = "Cooking MC's like a pound of bacon"
 
         self.assertEqual(set1Chal3Solution(val), corr)
+    
+    def test_detect_single_char_xor(self):
+      corr = "Now that the party is jumping\n"
+      self.assertEqual(set1Chal4Solution(), corr)
+
 
 # Iterate through int character values (0-255)
 
@@ -39,12 +44,30 @@ def set1Chal3Solution(val):
     for i in range(0, 255):
         temp = singleByteXOR(val, i)
         tempScore = frequencyAnalyzer(temp)
-        print(temp)
-        print(tempScore)
         if(tempScore > bestScore):
             bestScore = tempScore
             result = temp
     return result.decode()
+  
+def set1Chal4Solution():
+  # with statement will automatically close the file 
+  # after the nested block of code
+  with open("Data/4.txt", "r") as file: 
+    data = file.readlines()
+    bestScore = 0
+    result = ''
+    for line in data: 
+      word = line.split() 
+      wordStr = ''.join(word)#List -> Str
+            
+      for i in range(0, 255):
+        temp = singleByteXOR(wordStr, i)
+        tempScore = frequencyAnalyzer(temp)
+        if(tempScore > bestScore):
+          bestScore = tempScore
+          result = temp
+            
+  return result.decode()
 
 
 if __name__ == "__main__":
